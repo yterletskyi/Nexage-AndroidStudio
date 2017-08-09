@@ -18,31 +18,27 @@ import org.nexage.sourcekit.util.VASTLog;
 import org.nexage.sourcekit.vast.VASTPlayer;
 
 public class AboutFragment extends Fragment {
-	private static final String TAG = "AboutFragment";
+    private static final String TAG = "AboutFragment";
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		VASTLog.d(TAG, "onCreateView");
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        VASTLog.d(TAG, "onCreateView");
 
-		View rootView = inflater.inflate(R.layout.fragment_about, container,
-				false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
 
-		String versionName = "";
-		try {
-			versionName = getActivity().getPackageManager().getPackageInfo(
-					getActivity().getPackageName(), 0).versionName;
+        String versionName = "";
 
-		} catch (NameNotFoundException e) {
-			VASTLog.e(TAG, e.getMessage(), e);
-   	}
+        try {
+            versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+        } catch (NameNotFoundException e) {
+            VASTLog.e(TAG, e.getMessage(), e);
+        }
 
-		// Set versions
-		TextView version = (TextView) rootView.findViewById(R.id.versionNumber);
-		version.setText("VAST Library: " + VASTPlayer.VERSION + " & Demo: "
-				+ versionName);
+        // Set versions
+        TextView version = (TextView) rootView.findViewById(R.id.versionNumber);
+        version.setText("VAST Library: " + VASTPlayer.VERSION + " & Demo: " + versionName);
 
-		return rootView;
-	}
+        return rootView;
+    }
 
 }

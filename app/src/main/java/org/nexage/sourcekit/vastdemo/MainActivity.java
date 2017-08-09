@@ -6,79 +6,40 @@
 
 package org.nexage.sourcekit.vastdemo;
 
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+
 import org.nexage.sourcekit.util.VASTLog;
 import org.nexage.sourcekit.vastdemo.adapter.MainPagerAdapter;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.Window;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends FragmentActivity implements
-		ActionBar.TabListener {
-	private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
-	private String[] TAB_LABELS = { "VAST Samples", "About" };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	private ViewPager viewPager;
-	private PagerAdapter pagerAdapter;
-	private ActionBar actionBar;
+        VASTLog.d(TAG, "onCreate");
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		VASTLog.d(TAG, "onCreate");
+        ViewPager viewPager = findViewById(R.id.pager);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(false);
 
-		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-		setContentView(R.layout.activity_main);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
 
-		viewPager = (ViewPager) findViewById(R.id.pager);
-		actionBar = getActionBar();
-		pagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        PagerAdapter pagerAdapter = new MainPagerAdapter(supportFragmentManager);
 
-		viewPager.setAdapter(pagerAdapter);
-		actionBar.setHomeButtonEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        viewPager.setAdapter(pagerAdapter);
 
-		for (String label : TAB_LABELS) {
-			actionBar.addTab(actionBar.newTab().setText(label)
-					.setTabListener(this));
-		}
-
-		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-			}
-
-		});
-	}
-
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		viewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	}
-
+    }
 }

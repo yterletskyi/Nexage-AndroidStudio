@@ -5,83 +5,80 @@
 //
 
 
-
 package org.nexage.sourcekit.util;
 
 import android.util.Log;
 
 public class VASTLog {
 
-	private static String TAG = "VAST";
-	
-	public enum LOG_LEVEL {
+    private static String TAG = "VAST";
+    private static LOG_LEVEL LEVEL = LOG_LEVEL.verbose;
 
-		verbose (1),
-		debug (2),
-		info (3),
-		warning (4),
-		error (5),
-		none (6);
+    public static void v(String tag, String msg) {
+        if (LEVEL.getValue() <= LOG_LEVEL.verbose.getValue()) {
+            Log.v(tag, msg);
+        }
+    }
 
-		private int value;
+    public static void d(String tag, String msg) {
+        if (LEVEL.getValue() <= LOG_LEVEL.debug.getValue()) {
+            Log.d(tag, msg);
+        }
+    }
 
-		private LOG_LEVEL(int value) {
-			this.value = value;
+    public static void i(String tag, String msg) {
+        if (LEVEL.getValue() <= LOG_LEVEL.info.getValue()) {
+            Log.i(tag, msg);
+        }
+    }
 
-		}
+    public static void w(String tag, String msg) {
+        if (LEVEL.getValue() <= LOG_LEVEL.warning.getValue()) {
+            Log.w(tag, msg);
+        }
+    }
 
-		public int getValue() {
-			return value;
-		}
+    public static void e(String tag, String msg) {
+        if (LEVEL.getValue() <= LOG_LEVEL.error.getValue()) {
+            Log.e(tag, msg);
+        }
+    }
 
-	}
+    public static void e(String tag, String msg, Throwable tr) {
+        if (LEVEL.getValue() <= LOG_LEVEL.error.getValue()) {
+            Log.e(tag, msg, tr);
+        }
+    }
 
-	
-	private static LOG_LEVEL LEVEL = LOG_LEVEL.error;
+    public static LOG_LEVEL getLoggingLevel() {
+        return LEVEL;
+    }
 
-	public static void v(String tag, String msg) {
-		if (LEVEL.getValue() <= LOG_LEVEL.verbose.getValue()) {
-			Log.v(tag, msg);
-		}
-	}
+    public static void setLoggingLevel(LOG_LEVEL logLevel) {
+        Log.i(TAG, "Changing logging level from :" + LEVEL + ". To:" + logLevel);
+        LEVEL = logLevel;
+    }
 
-	public static void d(String tag, String msg) {
-		if (LEVEL.getValue() <= LOG_LEVEL.debug.getValue()) {
-			Log.d(tag, msg);
-		}
-	}
+    public enum LOG_LEVEL {
 
-	public static void i(String tag, String msg) {
-		if (LEVEL.getValue() <= LOG_LEVEL.info.getValue()) {
-			Log.i(tag, msg);
-		}
-	}
+        verbose(1),
+        debug(2),
+        info(3),
+        warning(4),
+        error(5),
+        none(6);
 
-	public static void w(String tag, String msg) {
-		if (LEVEL.getValue() <= LOG_LEVEL.warning.getValue()) {
-			Log.w(tag, msg);
-		}
-	}
+        private int value;
 
-	public static void e(String tag, String msg) {
-		if (LEVEL.getValue() <= LOG_LEVEL.error.getValue()) {
-			Log.e(tag, msg);
-		}
-	}
+        private LOG_LEVEL(int value) {
+            this.value = value;
 
-	public static void e(String tag, String msg, Throwable tr) {
-		if (LEVEL.getValue() <= LOG_LEVEL.error.getValue()) {
-			Log.e(tag, msg, tr );
-		}
-	}
+        }
 
-	public static void setLoggingLevel(LOG_LEVEL logLevel) {
-		Log.i(TAG, "Changing logging level from :"+LEVEL+". To:"+logLevel);
-		LEVEL = logLevel;
-	}
-	
-	public static LOG_LEVEL getLoggingLevel() {
-		return LEVEL;
-	}
+        public int getValue() {
+            return value;
+        }
+
+    }
 
 }

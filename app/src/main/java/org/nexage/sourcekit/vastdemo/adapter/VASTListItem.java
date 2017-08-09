@@ -7,29 +7,29 @@
 package org.nexage.sourcekit.vastdemo.adapter;
 
 public class VASTListItem {
- 
-    private String title; // First line on the list
-    private String description; // Second line on the list
- 
+
+    private String mTitle;
+    private String mDescription;
+
     public VASTListItem(String title, String description) {
         super();
-        this.setTitle(title);
-        this.setDescription(description);
+        setTitle(title);
+        setDescription(description);
     }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return mTitle;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        mTitle = title;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return mDescription;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        mDescription = description;
+    }
 }
